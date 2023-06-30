@@ -1,0 +1,65 @@
+﻿
+@{
+    ViewBag.Title = "VideoList";
+    Layout = "~/Areas/Admin/Views/Shared/AdminLayout.cshtml";
+}
+
+@model List<DTO.VideoDTO>
+<section class="content-header">
+    <ol class="breadcrumb float-sm-left">
+        <li class="breadcrumb-item"><a>Admin</a></li>
+        <li class="breadcrumb-item"><a>Video</a></li>
+        <li class="breadcrumb-item active"><a>Video List</a></li>
+    </ol>
+    <button type="submit" class="btn btn-primary float-right" onclick="window.location.href='/Admin/Video/AddVideo'">Add Video</button>
+</section>
+<br />
+<br />
+<div class="card">
+
+    <!-- /.card-header -->
+    <div class="card-body">
+        <table id="example1" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th style="text-align: center">Title</th>
+                    <th style="text-align: center">Video</th>
+                    <th style="text-align: center">Update</th>
+                    <th style="text-align: center">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+
+                    <tr id="a_@item.ID">
+                        <td>@item.Title</td>
+                        <td>@item.OriginalVideoPath</td>
+                        <td class="button-cell">
+                            <div class="button-wrapper">
+                                <a href="/Admin/Video/UpdateVideo/@item.ID">
+                                    <img src="~/Areas/Admin/Icons/Update.png" />
+                                </a>
+                            </div>
+                        </td>
+                        <td class="button-cell">
+                            <div class="button-wrapper">
+                                <a href="#">
+                                    <img src="~/Areas/Admin/Icons/delete.png" data-toggle="modal" data-target="#modalmessage" onclick="AskQuestion('/Admin/Video/DeleteVideo/',@item.ID)" />
+                                </a>
+                            </div>
+                        </td>
+
+                    </tr>
+
+
+                }
+            </tbody>
+            </table>
+    </div>
+    @Html.Partial("~/Areas/Admin/Views/Shared/ModalMessage.cshtml")
+    <!-- /.card-body -->
+</div>
+<script src="~/Areas/Admin/Content/JS/DeleteRecord.js"></script>
+
+

@@ -1,0 +1,473 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Oak</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Font Awesome -->
+    <!-- Ionicons -->
+    <link href="~/Areas/Admin/Content/CSS/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+
+    <!-- overlayScrollbars -->
+    <link href="~/Areas/Admin/Content/CSS/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/Content/CSS/responsive.bootstrap4.min.css" rel="stylesheet" />
+    <!--Theme Style-->
+    <link href="~/Areas/Admin/Content/CSS/bootstrap-4.min.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/Content/CSS/adminlte.min.css" rel="stylesheet" />
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <style>
+        .button-cell {
+            text-align: center;
+            position: relative;
+        }
+
+            .button-cell .button-wrapper {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+
+                .button-cell .button-wrapper a {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 100%;
+                    height: 100%;
+                }
+
+                .button-cell .button-wrapper:hover {
+                    background-color: #e5e5e5;
+                    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+                }
+
+            .button-cell img {
+                width: 30px; /* Adjust the width of the image as needed */
+                height: 30px; /* Adjust the height of the image as needed */
+                /* Additional styles for vertical centering */
+                display: block;
+                margin: 0 auto;
+            }
+    </style>
+</head>
+<body class="hold-transition sidebar-mini">
+    @using DTO
+    <!-- Site wrapper -->
+    <div class="wrapper">
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+                <li class="nav-item d-none d-sm-inline-block">
+                    <h2>@(((string[])ViewData["Data"])[0]) </h2>
+                </li>
+            </ul>
+            <!-- SEARCH FORM -->
+            <!-- Right navbar links -->
+            <ul class="navbar-nav ml-auto">
+                <!-- Messages Dropdown Menu -->
+                <li class="nav-item">
+                    <a class="nav-link" href="/Admin/Comment/UnapprovedComments">
+                        <i class="far fa-comments"></i>
+                        <span class="badge badge-danger navbar-badge" id="CommentCount"></span>
+                    </a>
+
+                </li>
+                <!-- Notifications Dropdown Menu -->
+                <li class="nav-item">
+                    <a class="nav-link" href="/Admin/Contact/UnreadMessages">
+                        <i class="far fa-bell"></i>
+                        <span class="badge badge-warning navbar-badge" id="MessageCount"></span>
+                    </a>
+
+                </li>
+            </ul>
+        </nav>
+        <!-- /.navbar -->
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- Brand Logo -->
+            <a href="#" class="brand-link">
+                <img src="~/Areas/Admin/Content/tempimage/OAK.png"
+                     alt="Oak logo"
+                     class="brand-image img-circle elevation-3"
+                     style="opacity: .8">
+                <span class="brand-text font-weight-light">OAK Academy</span>
+            </a>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Sidebar user (optional) -->
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                    <div class="image">
+                        <img src="~/Areas/Admin/Content/UserImage/@UserStatic.Imagepath" class="img-circle elevation-2" alt="User Image">
+                    </div>
+                    <div class="info">
+                        <a href="#" class="d-block">@UserStatic.Namesurname</a>
+                    </div>
+                </div>
+
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <!-- Add icons to the links using the .nav-icon class
+                        with font-awesome or any other icon font library -->
+                        <li class="nav-item has-treeview" id="SiteSettings">
+                            <a href="#" class="nav-link" id="SiteSetting">
+                                <i class="nav-icon fas fa-book"></i>
+                                <p>
+                                    Site Settings
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="~/Admin/Fav/UpdateFav" class="nav-link" id="FavLogo">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Fav Icon Logo Title</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/Admin/Meta/MetaList" class="nav-link" id="MetaList">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Meta List</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item has-treeview" id="Addresss">
+                            <a href="#" class="nav-link" id="Address">
+                                <i class="nav-icon fas fa-book"></i>
+                                <p>
+                                    Address
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="~/Admin/Address/AddressList" class="nav-link" id="AddressList">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Address list</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item has-treeview" id="SocialMedias">
+                            <a href="#" class="nav-link" id="SocialMedia">
+                                <i class="nav-icon fas fa-book"></i>
+                                <p>
+                                    SocialMedia
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item" >
+                                    <a href="~/Admin/SocialMedia/SocialMediaList" class="nav-link" id="SocialMediaList">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Social Media list</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item has-treeview" id="Adss">
+                            <a href="#" class="nav-link" id="Ads">
+                                <i class="nav-icon fas fa-book"></i>
+                                <p>
+                                    Ads
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="~/Admin/Ads/AdsList" class="nav-link" id="AdsList">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Ads list</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item has-treeview" id="Categorys">
+                            <a href="#" class="nav-link" id="Category">
+                                <i class="nav-icon fas fa-book"></i>
+                                <p>
+                                    Category
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="~/Admin/Category/CategoryList" class="nav-link" id="CategoryList">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Category list</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item has-treeview" id="Posts">
+                            <a href="#" class="nav-link" id="Post">
+                                <i class="nav-icon fas fa-book"></i>
+                                <p>
+                                    Posts
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="~/Admin/Post/PostList" class="nav-link" id="PostList">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Post List</p>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
+
+                        <li class="nav-item has-treeview" id="Videos">
+                            <a href="#" class="nav-link" id="Video">
+                                <i class="nav-icon fas fa-book"></i>
+                                <p>
+                                    Videos
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="~/Admin/Video/VideoList" class="nav-link" id="VideoList">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Videos List</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item has-treeview" id="Unapps">
+                            <a href="#" class="nav-link" id="Unapp">
+                                <i class="nav-icon fas fa-book"></i>
+                                <p>
+                                    Comments
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item" >
+                                    <a href="~/Admin/Comment/AllComments" class="nav-link" id="UnappList1">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>All Commnents</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/Admin/Comment/UnapprovedComments" class="nav-link" id="UnappList">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>UnApproved Comment</p>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
+
+                        <li class="nav-item has-treeview" id="Messages">
+                            <a href="#" class="nav-link" id="Message">
+                                <i class="nav-icon fas fa-book"></i>
+                                <p>
+                                    Messages
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="/Admin/Contact/AllMessages" class="nav-link" id="MessageList">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>All Messages</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/Admin/Contact/UnreadMessages" class="nav-link" id="MessageList1">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Unread Messages</p>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
+
+                        <li class="nav-item has-treeview" id="Logs">
+                            <a href="#" class="nav-link" id="Log">
+                                <i class="nav-icon fas fa-book"></i>
+                                <p>
+                                    Log
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="/Admin/Log/LogList" class="nav-link" id="LogList">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>LogList</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        @if (UserStatic.IsAdmin)
+                        {
+                            <li class="nav-item has-treeview" id="Users">
+
+                                <a href="#" class="nav-link" id="User">
+                                    <i class="nav-icon fas fa-book"></i>
+                                    <p>
+                                        User
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="~/Admin/User/UserList" class="nav-link" id="UserList">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>User List</p>
+                                        </a>
+                                    </li>
+                                    
+
+                                </ul>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item has-treeview" id="Users">
+                                <a href="#" class="nav-link" id="User">
+                                    <i class="nav-icon fas fa-book"></i>
+                                    <p>
+                                        User
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="~/Admin/User/UpdateUser/@UserStatic.UserID" class="nav-link" id="UserList2">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>User Update</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                        }
+                    </ul>
+                </nav>
+                <!-- /.sidebar-menu -->
+            </div>
+            <!-- /.sidebar -->
+        </aside>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <!-- Main content -->
+
+            @RenderBody()
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+
+        <footer class="main-footer">
+            <div class="float-right d-none d-sm-block">
+
+            </div>
+
+        </footer>
+
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
+    </div>
+    <!-- ./wrapper -->
+    <!-- jQuery -->
+    <!-- Bootstrap 4 -->
+    <script src="~/Areas/Admin/Content/JS/jquery.min.js"></script>
+    <script src="~/Areas/Admin/Content/JS/bootstrap.bundle.min.js"></script>
+    <script src="~/Areas/Admin/Content/JS/jquery.dataTables.min.js"></script>
+    <script src="~/Areas/Admin/Content/JS/dataTables.bootstrap4.min.js"></script>
+    <script src="~/Areas/Admin/Content/JS/dataTables.responsive.min.js"></script>
+    <script src="~/Areas/Admin/Content/JS/responsive.bootstrap4.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/Areas/Admin/Content/JS/sweetalert2.min.js"></script>
+    <script src="~/Areas/Admin/Content/JS/adminlte.min.js"></script>
+
+    <!-- AdminLTE for demo purposes -->
+    <script src="~/Areas/Admin/Content/JS/demo.js"></script>
+    <script>
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true,
+                "autoWidth": false,
+                "ordering": false,
+            });
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            GetCounts();
+        });
+    </script>
+    <script type="text/javascript">
+        setInterval(function () {
+            GetCounts();
+        }, 10000
+        )
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if ('@(((string[])ViewData["Data"])[2]) ' != null)
+        {
+           $('#' + '@(((string[])ViewData["Data"])[2]) ').addClass('active');
+        }
+
+        });
+        $(document).ready(function () {
+            if ('@(((string[])ViewData["Data"])[3]) ' != null)
+        {
+           $('#' + '@(((string[])ViewData["Data"])[3]) ').addClass('active');
+        }
+
+        });
+        $(document).ready(function () {
+            if ('@(((string[])ViewData["Data"])[1]) ' != null)
+        {
+           $('#' + '@(((string[])ViewData["Data"])[1]) ').addClass('menu-open');
+        }
+
+        });
+       function GetCounts() {
+           $.ajax({
+               url: "@Url.Action("GetCounts","Post")",
+               type: "POST",
+               success: function (result) {
+                   $("#CommentCount").html(result.CommentCount);
+                   $("#MessageCount").html(result.MessageCount);
+               }
+           });
+       }
+    </script>
+</body>
+</html>

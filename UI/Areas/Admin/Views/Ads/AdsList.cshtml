@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewBag.Title = "AdsList";
+    Layout = "~/Areas/Admin/Views/Shared/AdminLayout.cshtml";
+}
+
+@model List<DTO.AdsDTO>
+<section class="content-header">
+    <ol class="breadcrumb float-sm-left">
+        <li class="breadcrumb-item"><a>Admin</a></li>
+        <li class="breadcrumb-item"><a>Ads</a></li>
+        <li class="breadcrumb-item active"><a>Ads List</a></li> </ol>
+    <button type="submit" class="btn btn-primary float-right" onclick="window.location.href='/Admin/Ads/AddAds'">Add Ads</button>
+</section>
+<br />
+<br />
+
+<div class="card">
+    <!-- /.card-header -->
+    <div class="card-body">
+        <table id="example1" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th style="text-align: center">Name</th>
+                    <th style="text-align: center">Link</th>
+                    <th style="text-align: center">Image</th>
+                    <th style="text-align: center">Update</th>
+                    <th style="text-align: center">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+
+                    <tr id="a_@item.ID">
+                        <td align="center" valign="middle">@item.Name</td>
+                        <td>@item.Link</td>
+                        <td align="center" valign="middle"><img src="~/Areas/Admin/Content/AdsImage/@item.ImagePath" width="60" height="40" /></td>
+                        <td class="button-cell">
+                            <div class="button-wrapper">
+                                <a href="/Admin/Ads/UpdateAds/@item.ID">
+                                    <img src="~/Areas/Admin/Icons/Update.png" />
+                                </a>
+                            </div>
+                        </td>
+                        <td class="button-cell">
+                            <div class="button-wrapper">
+                                <a href="#">
+                                    <img src="~/Areas/Admin/Icons/delete.png" data-toggle="modal" data-target="#modalmessage" onclick="AskQuestion('/Admin/Ads/DeleteAds/',@item.ID)" />
+                                </a>
+                            </div>
+                        </td>
+
+                    </tr>
+
+
+                }
+            </tbody>
+            </table>
+    </div>
+    @Html.Partial("~/Areas/Admin/Views/Shared/ModalMessage.cshtml")
+    <!-- /.card-body -->
+</div>
+<script src="~/Areas/Admin/Content/JS/DeleteRecord.js"></script>
+
+
+
+
