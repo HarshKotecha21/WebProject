@@ -2,7 +2,7 @@
 Project Title: Educational Web App
 
 Project Description:
-The Educational Training and Blog Website is a comprehensive platform developed using C# and ASP.NET MVC, built on the .NET framework. This dynamic website serves as an online hub for educational resources, training materials, and blog content. It incorporates an intuitive admin panel that empowers administrators to manage and generate content for the main website efficiently.
+The Educational Web App is a comprehensive platform developed using C# and ASP.NET MVC, built on the .NET framework. This dynamic website serves as an online hub for educational resources, training materials, and blog content. It incorporates an intuitive admin panel that empowers administrators to manage and generate content for the main website efficiently.
 
 Key Features:
 
